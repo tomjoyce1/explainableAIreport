@@ -41,11 +41,7 @@
 
   ),
   abstract: [
-    These instructions give you guidelines for preparing papers for IFAC technical meetings. Please use this document as a template to prepare your manuscript. For submission guidelines, follow instructions on paper submission system as well as the event website.
-  ],
-  keywords: ("Five to ten keywords", "preferably chosen from the IFAC keyword list."),
-  sponsor: [
-    Sponsor and financial support acknowledgment goes here. Paper titles should be written in uppercase and lowercase letters, not all uppercase.
+    The proliferation of Large Language Models (LLMs) across critical domains, from healthcare to finance, has fundamentally altered the landscape of human-computer interaction (HCI), presenting unprecedented capabilities alongside severe challenges to epistemic reliability. This reliability is fundamentally undermined by the phenomenon of "hallucinations"; the generation of outputs that are superficially plausible but factually incorrect or entirely fabricated [1]. This paper synthesizes foundational papers explaining how to understand and mitigate such risks.
   ],
 )
 
