@@ -1,0 +1,5 @@
+{
+  "typst-lsp.preview.enabled": true,
+  "typst-lsp.preview.autoOpen": true,
+  "typst-lsp.preview.position": "right"
+}
