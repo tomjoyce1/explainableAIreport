@@ -12,23 +12,23 @@
       affiliation: 1,
     ),
         (
-      name: "Oisín",
-      email: "x@studentmail.ul.ie",
+      name: "Oisín Frizell",
+      email: "23368276@studentmail.ul.ie",
       affiliation: 1,
     ),
         (
       name: "Andrew Jaffray",
-      email: "x@studentmail.ul.ie",
+      email: "23382163@studentmail.ul.ie",
       affiliation: 1,
     ),
         (
-      name: "Eddie",
-      email: "x@studentmail.ul.ie",
+      name: "Edmund Phelan",
+      email: "23397179@studentmail.ul.ie",
       affiliation: 1,
     ),
         (
       name: "Ruairí Glackin",
-      email: "x@studentmail.ul.ie",
+      email: "23382732@studentmail.ul.ie",
       affiliation: 1,
     )
   ),
@@ -41,28 +41,62 @@
 
   ),
   abstract: [
-    The proliferation of Large Language Models (LLMs) across critical domains, from healthcare to finance, has fundamentally altered the landscape of human-computer interaction (HCI), presenting unprecedented capabilities alongside severe challenges to epistemic reliability. This reliability is fundamentally undermined by the phenomenon of "hallucinations"; the generation of outputs that are superficially plausible but factually incorrect or entirely fabricated [1]. This paper synthesizes foundational papers explaining how to understand and mitigate such risks.
+    Large Language Models (LLMs) exhibit impressive fluency but are prone to hallucinations—outputs that are coherent yet factually incorrect or fabricated.
+These hallucinations pose significant risks in high-stakes domains, including healthcare, law, and scientific writing.
+Hallucinations broadly arise from two sources: prompting-induced errors and model-internal tendencies.
+Distinguishing these sources is essential for developing effective mitigation strategies.
+Current approaches, such as RLHF, improve behavior but do not fully eliminate hallucinations.
+In Human-Computer Interaction (HCI) contexts, hallucinations can directly undermine user trust and decision-making.
+To investigate this, we benchmarked five LLMs across standardized hallucination evaluation datasets, including TruthfulQA, HallucinationEval, and RealToxicityPrompts.
+Our study builds on prior analyses while extending evaluation to more models and scenarios.
+We examine whether recent LLM improvements reduce hallucinations and their impact on user trust.
+Findings aim to guide both technical mitigation strategies and HCI-informed interface design to maintain reliability and trust.
   ],
 )
 
 = Introduction
 
-This document is a template for Typst. Yo
-Running the command `typst init @preview/abiding-ifacconf` will generate the files needed to get started..
-The template files are also available on github at #link("https://github.com/avonmoll/ifac-typst")[`https://github.com/avonmoll/ifacconf-typst`].
+Large Language Models (LLMs) have impressive fluency and ability to perform complex tasks but a critical challenge persists: hallucinations. Hallucinations occur when models generate output that appears coherent and convincing but is factually incorrect, fabricated, or logically inconsistent (Ji et al., 2023; Maynez et al., 2020; Kazemi et al., 2023). Numerous studies have documented this phenomenon, highlighting its prevalence and the risks it poses in high-stakes contexts with serious consequences, such as misdiagnoses in healthcare, fabricated citations in academic writing, and erroneous case references in legal documents [1], [2].
 
-Please stick to the format defined by the `ifacconf` function, and do not change the margins or the general layout of the paper.
-It is especially important that you do not put any running header/footer or page number in the submitted paper.#footnote[This is the default for the provided class file.]
-Use _italics_ for emphasis; do not underline.
+Broadly, hallucinations in LLMs can be divided into two primary sources: (1) Prompting-induced hallucinations, where ill-structured, unspecified, or misleading prompts cause inefficient outputs (Reynolds and McDonell, 2021; Zhou et al., 2022; Wei et al., 2022), and (2) Model-internal hallucinations, which caused by the model's architecture, pretraining data distribution, or inference behavior (Bang and Madotto, 2023; Chen et al., 2023; OpenAI, 2023a). Distinguishing between these two causes is essential for developing effective mitigation strategies.
 
-Page limits may vary from conference to conference.
-Please observe the page limits of the event for which your paper is intended.
+Currently, there is no definitive method to prevent hallucinations. While RLHF has shown promise in improving model behavior, challenges remain in ensuring the accuracy and reliability of LLM outputs. To address this issue, we are conducting a literature review to study the interaction between LLMs and hallucinations. Our research involves benchmarking 5 different LLMs. We try to reproduce findings of Survey and analysis of hallucinations in large language models: attribution to prompting strategies or model behavior by Hoang, except on more models than they just did. Using standardized hallucination evaluation benchmarks [e.g., TruthfulQA (Lin et al., 2022), HallucinationEval (Wu et al., 2023), RealToxicityPrompts (Gehman et al., 2020)].
+The conclusions drawn from this analysis aim to determine whether advancements in LLMs have mitigated the occurrence of hallucinations in previously problematic scenarios, and how this impacts user trust.
 
-= Procedure for Paper Submission
+
+== Tables
+
+
+#tablefig(
+  table(
+    columns: 1,
+    align: center + horizon,
+    stroke: none,
+    inset: 3pt,
+    [User Query : Retrieve the oldest photo of a cat],
+    table.hline(),
+    [b("ChatGPT"):  There is no definitive answer to this question
+as “the oldest photo of a cat” is subjective and varies based
+on different sources and definitions. However, one can-
+didate for the oldest cat photo is the daguerreotype
+“Cat with Blue Ribbon,” taken by photographer Antoine
+Claudet in 1840. The photo depicts a cat sitting on a table,
+gazing directly at the camera, and wearing a blue ribbon
+tied around its neck. [...]],  
+    table.hline(),
+  ),
+  caption: [An example from Alpaca (Taori et al., 2023)
+showing that ChatGPT might generate hallucinated con-
+tents (green) that cannot be verified by existing source.
+],
+) <margins>
+
+= Background and Related Work
+
 
 Next we see a few subsections.
 
-== Review Stage
+==  Explainable AI (xAI) in context
 
 For submission guidelines, follow instructions on paper submission system as well as the event website.
 
@@ -128,7 +162,7 @@ Figures must be centered, and have a caption at the bottom.
 == Tables
 
 Tables must be centered and have a caption above them, numbered with Arabic numerals.
-See @margins for an example.
+See  for an example.
 
 #tablefig(
   table(
@@ -145,6 +179,8 @@ See @margins for an example.
   caption: [Margin settings],
 ) <margins>
 
+
+
 == Final Stage
 
 Authors are expected to mind the margins diligently.
@@ -152,7 +188,7 @@ Papers need to be stamped with event data and paginated for inclusion in the pro
 If your manuscript bleeds into margins, you will be required to resubmit and delay the proceedings preparation in the process.
 
 === Page margins.
-See @margins for the page margins specification.
+See  for the page margins specification.
 All dimensions are in _centimeters_.
 
 == PDF Creation
