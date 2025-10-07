@@ -1,5 +1,7 @@
 #import "@preview/lilaq:0.5.0" as lq
   
+#set text(size: 12pt)
+
 #set page(
   columns: 1,
  )
