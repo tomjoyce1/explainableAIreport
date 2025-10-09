@@ -42,22 +42,26 @@
   date: "October 2025 | CS4437",
 
   abstract: [
-    This study investigates hallucinations in Explainable AI (xAI) systems and their impact on user trust, combining theoretical analysis with empirical evaluation. Hallucinations; defined as high-confidence yet incorrect outputs, pose challenges for decision-making and can misalign user trust. We conducted a literature review to understand the underlying causes, including model stochasticity, data biases, and overgeneralization, and explored strategies for mitigating their effects through explanations and confidence indicators. Empirically, we evaluated three industry models using the HaluEval QA benchmark on 200 samples. Results show that Gemini-2.5-flash achieved 76% accuracy (152 correct), Meta-llama_Llama-3.1-8B 60% (120 correct), and DeepSeek V3.2 54% (108 correct), highlighting substantial variability in hallucination rates. Analysis indicates that hallucinations often arise from overconfident predictions and insufficient grounding in factual data, which can mislead users even when explanations are provided. These findings underscore the importance of transparent explanations and calibrated confidence measures in xAI systems to reduce trust misalignment. Overall, this work contributes to understanding the interplay between hallucinations, model performance, and user trust, offering guidance for designing more reliable and interpretable AI-assisted decision systems.
+    This study investigates hallucinations in Large Language Model (LLM) systems and their impact on user trust. Hallucinations, defined as high-confidence yet incorrect outputs, pose challenges for decision-making and can misalign user trust. We conducted a literature review to understand the underlying causes, including model stochasticity, data biases, and overgeneralization, and explored strategies for mitigating their effects through explanations and confidence indicators.
+
+We evaluated three industry models using the HaluEval QA benchmark on 200 samples. Results show that Gemini-2.5-flash achieved 76% accuracy (152 correct), Meta-llama_Llama-3.1-8B 60% (120 correct), and DeepSeek V3.2 54% (108 correct), highlighting substantial variability in hallucination rates across various LLMs. These differences likely stem from variations in training data quality, alignment techniques, and model size, which strongly influence factual reliability and reasoning consistency.
+
+These findings underscore the importance of transparent explanations and calibrated confidence measures in xAI systems to reduce trust misalignment. Overall, this work contributes to understanding the interplay between hallucinations, model performance, and user trust, offering guidance for designing more reliable and interpretable AI-assisted decision systems.
   ],
 )
 // added this at random FIX
 #set text(size: 11pt)
 
 = Introduction
-Large Language Models (LLMs) have impressive fluency and ability to perform complex tasks but a critical challenge persists: hallucinations. Hallucinations occur when models generate output that appears coherent and convincing but is factually incorrect, fabricated, or logically inconsistent (Ji et al., 2023; Maynez et al., 2020; Kazemi et al., 2023). 
-Numerous studies have documented this phenomenon, highlighting its prevalence and the risks it poses in high-stakes contexts with serious consequences, such as misdiagnoses in healthcare, fabricated citations in academic writing, and erroneous case references in legal documents [1], [2].
-While some research has examined how human misconceptions or biases embedded in large-scale datasets contribute to model errors, these do not strictly constitute hallucinations. Similarly, trivial multiple-choice evaluation tasks may not capture the full impact of hallucinations, which are most misleading and consequential when arising from architectural limitations.
+Large Language Models have impressive fluency and ability to perform complex tasks but a critical challenge persists: hallucinations. Hallucinations occur when models generate output that appears coherent and convincing but is factually incorrect, fabricated, or logically inconsistent (@Ji2023; @Maynez2020; @Kazemi2023).
+Numerous studies have documented this phenomenon, highlighting both its prevalence and the risks it poses in high-stakes contexts such as healthcare misdiagnoses (@Nori2023), fabricated citations in academic writing (@Zuccon2023), and erroneous legal case references. These cases underscore that hallucinations are not merely linguistic artifacts but can lead to significant real-world consequences.
+\ \
+According to @HoangEtAl, hallucinations in LLMs can be divided into two primary sources:
+(1) Prompting-induced hallucinations, where ill-structured, unspecified, or misleading prompts cause inefficient outputs (@Reynolds2021; @Zhou2022; @Wei2022), and (2) Model-internal hallucinations, which caused by the model's architecture, pretraining data distribution, or inference behavior (@Bang2023; @Chen2023; @OpenAI2023a). Distinguishing between these two causes is essential for developing effective mitigation strategies.
+\ \
 
-According to Hoang et al, hallucinations in LLMs can be divided into two primary sources: 
-(1) Prompting-induced hallucinations, where ill-structured, unspecified, or misleading prompts cause inefficient outputs (Reynolds and McDonell, 2021; Zhou et al., 2022; Wei et al., 2022), and (2) Model-internal hallucinations, which caused by the model's architecture, pretraining data distribution, or inference behavior (Bang and Madotto, 2023; Chen et al., 2023; OpenAI, 2023a). Distinguishing between these two causes is essential for developing effective mitigation strategies.
-
-Currently, there is no definitive method to prevent hallucinations. While RLHF has shown promise in improving model behavior, challenges remain in ensuring the accuracy and reliability of LLM outputs. To address this issue, we are conducting a literature review to study the interaction between LLMs and hallucinations. Our research involves benchmarking 3 different LLMs. We try to reproduce findings of ? HaluEval guys’s analysis of hallucinations in large language models by using standardized hallucination evaluation benchmarks (HallucinationEval (Wu et al., 2023)).
-The conclusions drawn from this analysis aim to determine whether advancements in LLMs have mitigated the occurrence of hallucinations in previously problematic scenarios, and how this impacts user trust.
+Despite advances such as Reinforcement Learning from Human Feedback (RLHF), no definitive solution exists for eliminating hallucinations. Ensuring factual reliability and epistemic trustworthiness in LLMs therefore remains an open challenge. To address this gap, the present study conducts a targeted literature review and empirical benchmarking of three contemporary LLMs. Specifically, we replicate and extend the HaluEval (@Wu2023) analysis using standardized hallucination evaluation benchmarks to assess whether recent model improvements have reduced hallucination frequency. The findings aim to clarify whether progress in model design has mitigated prior failure modes and to evaluate the implications for user trust and model reliability.
+\ \
 
 #tablefig(
   placement:auto,
@@ -81,6 +85,8 @@ tied around its neck. [...]],
   caption: [An example from Alpaca (Taori et al., 2023)
 gpt generate hallucinated con-
 tents (green) that cannot be verified by existing source.
+
+
 ],
 ) <margins>
 
@@ -176,7 +182,7 @@ Risks of reducing user autonomy through over-caution
 
 
 == Designing for calibrated trust/Measurement of trust erosion due to hallucinations
-Calibrated trust refers to the alignment between a user’s confidence in an AI system and the actual reliability or limitations of that system [1]. Empirical studies have consistently shown that when AI systems generate hallucinations—outputs that are factually incorrect or misleading—user trust is significantly eroded [2]. For example, a 2024 controlled experiment demonstrated that user trust (as measured by TrustDiff scores) dropped rapidly after exposure to AI hallucinations, highlighting the precariousness of user confidence and the urgent need for accuracy in AI outputs [2]. In addition, research shows that overtrust (users relying too heavily on the AI) and undertrust (users disregarding accurate outputs) are common responses to poor calibration, both of which can lead to suboptimal or even harmful outcomes [1], [3]. Designing for calibrated trust thus involves not only increasing AI reliability but also implementing transparency tools, such as confidence indicators and explanatory warnings, that help users correctly interpret outputs [1], [3]. Studies suggest that adaptive cues—such as real-time notifications when users are over- or under-relying on the system—can improve trust calibration and task performance [3], [4]. Ultimately, the goal is to empower users to make informed decisions regarding when to accept, doubt, or verify the information provided by AI systems.
+Calibrated trust refers to the alignment between a user’s confidence in an AI system and the actual reliability or limitations of that system [1]. Empirical studies have consistently shown that when AI systems generate hallucinations—outputs that are factually incorrect or misleading—user trust is significantly eroded [2]. For example, a 2024 controlled experiment demonstrated that user trust (as measured by TrustDiff scores) dropped rapidly after exposure to AI hallucinations, highlighting the precariousness of user confidence and the urgent need for accuracy in AI outputs [2]. In addition, research shows that overtrust (users relying too heavily on the AI) and undertrust (users disregarding accurate outputs) are common responses to poor calibration, both of which can lead to suboptimal or even harmful outcomes [1], [3]. Designing for calibrated trust thus involves not only increasing AI reliability but also implementing transparency tools, such as confidence indicators and explanatory warnings, that help users correctly interpret outputs @Wang2023, [3]. Studies suggest that adaptive cues—such as real-time notifications when users are over- or under-relying on the system—can improve trust calibration and task performance [3], [4]. Ultimately, the goal is to empower users to make informed decisions regarding when to accept, doubt, or verify the information provided by AI systems.
 
 == Evaluation frameworks
 Evaluating trust calibration in human–AI interaction requires a multi-dimensional approach, combining quantitative task metrics with qualitative assessment of user perceptions. Researchers typically employ controlled user studies in which participants interact with AI systems under varying conditions of reliability and transparency. For instance, Sanderson et al. exposed participants to both accurate outputs and deliberate hallucinations, subsequently measuring shifts in user trust via validated survey instruments such as the TrustDiff and System Usability Scale [5]. Task performance metrics—like accuracy, completion rate, and error recovery—are analysed in tandem with subjective ratings of confidence and satisfaction [6], [7].
@@ -207,25 +213,42 @@ Continuing there is still a research gap when it comes to the standardization of
 
 
 
-See @Abl56 @AbTaRu54 @Keo58, and @Pow85.
+See @Lajewska2024
 
 
 = Conclusion
 
-TBC
+While some research has examined how human misconceptions or biases embedded in It measures recognition or recall, not reasoning.
+
+
+It doesn’t simulate open-ended, real-world tasks where hallucinations cause real harm (e.g., legal advice, medical reasoning, research synthesis).
+
+
+It doesn’t expose architectural weaknesses (like reasoning chain collapse or poor truth grounding).
+large-scale datasets contribute to model errors, these do not strictly constitute hallucinations. 
+Similarly, trivial multiple-choice evaluation tasks may not capture the full impact of hallucinations, which are most misleading and consequential when arising from architectural limitations.
+
+Implications for xAI design and deployment
+
+
+Future directions for human-centred research
+
+#colbreak()
+#colbreak()
 
 // Display bibliography.
-#bibliography("refs.bib")
+#bibliography("refs.bib", style:"ieee")
 
 #appendix[Declarations]
-== AI Declaration
-Parts of this manuscript were generated or assisted by large language models, including text summarization, editing, and organization. The authors have verified the factual accuracy and intellectual content of all AI-generated material, and any errors or misrepresentations remain the responsibility of the authors. The use of AI tools does not replace critical evaluation, scholarly judgment, or original analysis.
+== AI Declaration of Use
+Parts of this manuscript were generated or assisted by large language models, including text summarisation, editing, and organisation. The authors have verified the factual accuracy and intellectual content of all AI-generated material, and any errors or misrepresentations remain the responsibility of the authors. The use of AI tools does not replace critical evaluation, scholarly judgment, or original analysis.
 
 == Equal Work
-page that is signed by all group members attesting to the satisfaction that all members contributed equally to the creation of the report and that it is your own work.
-
+We are satisfied that all members contributed equally to the creation of the report and that it is our own work.
+\ 
+Signed : Edmund Phelan, 09/10/2025 \
 Signed : Thomas Joyce, 09/10/2025 \
-Signed : rg, 09/10/2025 \
-Signed : ep, 09/10/2025 \
-Signed : of, 09/10/2025 \
-Signed : andrew, 09/10/2025
+Signed : Ruairí Glackin, 09/10/2025 \
+Signed : Oisín Frizell, 09/10/2025 \
+Signed : Andrew Jaffray, 09/10/2025 \
+  
