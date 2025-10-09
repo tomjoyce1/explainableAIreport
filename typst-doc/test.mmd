@@ -1,0 +1,21 @@
+flowchart LR
+    A[Question] -->C[Answer-in-the-sentence<br/>classifier]
+    C --> D[Sentence-level<br/>answerability scores<br/>0.76, 0.21, 0.11, 0.04...]
+    D --> E[Aggregation of<br/>answerability scores]
+    E --> F[Passage-level<br/>scores 0.53, 0.08...]
+    F --> G[Aggregation of<br/>answerability scores]
+    G --> H[Final ranking-level<br/>score 0.41]
+
+    %% Labels for hierarchy
+    subgraph Level1 [Sentence-level]
+        C --> D
+    end
+
+    subgraph Level2 [Passage-level]
+        D --> E --> F
+    end
+
+    subgraph Level3 [Ranking-level]
+        F --> G --> H
+    end
+
