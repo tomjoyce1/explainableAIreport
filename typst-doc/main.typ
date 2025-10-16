@@ -88,19 +88,19 @@ Despite advances such as Reinforcement Learning from Human Feedback (RLHF), no d
     align: center + horizon,
     stroke: none,
     inset: 3pt,
-    [*User Query : Retrieve the oldest photo of a cat   *],
+    [*User Query : Where is the Immersive Software Engineering building in the University of Limerick  
+    \
+        *],
+    
     table.hline(),
-    [("ChatGPT"):  There is no definitive answer to this question
-as “the oldest photo of a cat” is subjective and varies based
-on different sources and definitions. However, one can-
-didate for the oldest cat photo is the daguerreotype
-“Cat with Blue Ribbon,” taken by photographer Antoine
-Claudet in 1840. The photo depicts a cat sitting on a table,
-gazing directly at the camera, and wearing a blue ribbon
-tied around its neck. [...]],  
+    [\
+    ("ChatGPT"):  The Immersive Software Engineering (ISE) programme at the University of Limerick (UL) is primarily based in the Science & Engineering Faculty Office, located on the 1st Floor of the Lonsdale Building on the UL campus in Castletroy, Limerick, Ireland. This building houses the Department of Computer Science and Information Systems, which oversees the ISE programme [...] \
+    \
+    ],  
+    
     table.hline(),
   ),
-  caption: [An example of hallucinated content @Taori2023Hallucination.
+  caption: [An example of hallucinated content @gpt5hALLUC.
 ],)
   ]
 )
@@ -109,7 +109,7 @@ tied around its neck. [...]],
 = Benchmarking Hallucinations
 
 ==  Measuring Factuality and Harm: Standardised Benchmarks
-Reliable evaluation of Large Language Models (LLMs) requires standardised, rigorous benchmarks that quantify different types of failure modes, including hallucinations, misinformation, and factual errors @Lajewska2024; @Hallucination2025; @Sanderson2024Impact. To systematically evaluate hallucination detection, we employed the HaluEval benchmark @Wu2023, which is specifically designed for QA, dialogue, and summarisation tasks. HaluEval allows for precise measurement of a model’s ability to distinguish between factual and hallucinated content.
+Reliable evaluation of Large Language Models requires standardised, rigorous benchmarks that quantify different types of failure modes, including hallucinations, misinformation, and factual errors @Lajewska2024; @Hallucination2025; @Sanderson2024Impact. To systematically evaluate hallucination detection, we employed the HaluEval benchmark @Wu2023, which is specifically designed for QA, dialogue, and summarisation tasks. HaluEval allows for precise measurement of a model’s ability to distinguish between factual and hallucinated content.
 \ \
 We conducted a small-scale evaluation using a subset of 200 QA items balanced between correct and hallucinated answers. Each example consisted of an instruction, a question, an answer, and a corresponding judgment label. For example:
 
@@ -152,7 +152,7 @@ Each model was prompted with the instruction and asked to determine whether the 
 )
 Gemini-3.5 Flash (76%) demonstrated strong factual awareness and reliably acted as a hallucination detection model, making it a suitable baseline for cross-model evaluation @Wu2023; @Understanding2024. Llama-3.1-8B-Instruct (60%) performed moderately, showing inconsistency in binary judgments and suggesting potential benefit from prompt tuning with explicit Yes/No constraints @Lai2020. DeepSeek V3.2 Exp (54%) performed barely above random guessing, indicating weak hallucination detection capabilities and low reliability as a judge model @Wu2023; @FakeIt2025.
 \ \
-These findings underscore substantial variability in hallucination-detection ability across contemporary LLMs and highlight the need for standardised, reproducible benchmark evaluations. Gemini’s higher performance likely reflects architectural and alignment improvements such as advanced reinforcement learning from human feedback (RLHF) and enhanced factual consistency mechanisms which mitigate hallucination generation and recognition. In contrast, the open-source DeepSeek model, while valuable for transparency and research reproducibility, appears to lack comparable alignment tuning, resulting in higher error rates. This disparity illustrates the evolving trade-off between openness and reliability in the current LLM landscape.
+These findings underscore substantial variability in hallucination-detection ability across contemporary LLMs and highlight the need for standardised, reproducible benchmark evaluations. Gemini’s higher performance likely reflects architectural and alignment improvements such as advanced reinforcement learning from human feedback and enhanced factual consistency mechanisms which mitigate hallucination generation and recognition. In contrast, the open-source DeepSeek model, while valuable for transparency and research reproducibility, appears to lack comparable alignment tuning, resulting in higher error rates. This disparity illustrates the evolving trade-off between openness and reliability in the current LLM landscape.
 
 
 = Hallucinations Through a Human–Centred Lens
@@ -232,7 +232,7 @@ See @Lajewska2024
 
 = Conclusion
 
-This study confirms that hallucinations remain a critical challenge for Large Language Models (LLMs), significantly affecting model reliability and user trust. Our empirical benchmarking using the HaluEval QA subset demonstrated substantial variability in hallucination detection ability across contemporary models, with Gemini-3.5 Flash showing higher factual consistency than Meta-Llama-3.1-8B and DeepSeek V3.2. These findings underscore the need for continuous, standardised evaluation to quantify reliability @Wu2023.
+This study confirms that hallucinations remain a critical challenge for Large Language Models, significantly affecting model reliability and user trust. Our empirical benchmarking using the HaluEval QA subset demonstrated substantial variability in hallucination detection ability across contemporary models, with Gemini-3.5 Flash showing higher factual consistency than Meta-Llama-3.1-8B and DeepSeek V3.2. These findings underscore the need for continuous, standardised evaluation to quantify reliability @Wu2023.
 
 The analysis of user perception reveals that non-experts typically identify hallucinations not through technical means, but heuristically, describing the failure as the AI "lying" or providing "nonsense," which leads to strong negative emotional responses and trust erosion @Massenon2025. This human-centric view is crucial because LLM confidence and fluency often lead to overtrust, where users mistake coherence for correctness @Sanderson2024Impact.
 
@@ -250,7 +250,7 @@ Ultimately, mitigating the risk of hallucinations and ensuring ethical deploymen
 
 #appendix[Declarations]
 == AI Declaration of Use
-Parts of this manuscript were generated or assisted by large language models, including text summarisation, editing, and organisation. The authors have verified the factual accuracy and intellectual content of all AI-generated material, and any errors or misrepresentations remain the responsibility of the authors. The use of AI tools does not replace critical evaluation, scholarly judgment, or original analysis.
+Parts of this manuscript were spell-checked or assisted by large language models (https://chatgpt.com/), including text summarisation, editing, and organisation. The authors have verified the factual accuracy and intellectual content of all AI-generated material, and any errors or misrepresentations remain the responsibility of the authors. The use of AI tools does not replace critical evaluation, scholarly judgment, or original analysis.
 
 == Equal Work
 We are satisfied that all members contributed equally to the creation of the report and that it is our own work.
