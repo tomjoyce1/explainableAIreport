@@ -142,7 +142,7 @@ Each model was prompted with the instruction and asked to determine whether the 
     inset: 3pt,
     [Model], [Correct], [Incorrect], [Accuracy],
     table.hline(),
-    [Gemini-3.5 Flash], [152], [48], [0.76],
+    [Gemini-2.5 Flash], [152], [48], [0.76],
     [Llama-3.1-8B-Instruct], [120], [80], [0.60],
     [DeepSeek V3.2 Exp], [108], [92], [0.54],
     table.hline(),
@@ -174,6 +174,14 @@ This cycle reflects a broader human tendency to offload cognitive effort to auto
 \
 == Case studies
 Conversational AI systems such as ChatGPT and Gemini provide practical contexts for examining hallucinations and their impact on user trust. In their large-scale review analysis, @Massenon2025 identified common hallucination types in such systems, including factual inaccuracies (“gave the wrong historical date”), irrelevant or repetitive responses (“it kept repeating words”), and inconsistent personas (“it suddenly changed tone”). These user accounts show that hallucination perception varies by task type: factual domains elicit scrutiny of correctness, while conversational or creative tasks highlight coherence and tone.
+
+== Hallucination's Technical Cause
+Hallucination in large language models originates from both architectural constraints and contextual limitations inherent to transformer-based generation. Architecturally, LLMs such as GPT variants are trained via next-token prediction using maximum likelihood estimation, which optimizes for local coherence rather than factual grounding. This objective causes models to privilege probabilistic fluency over epistemic accuracy, generating tokens that best fit preceding text even when semantically false. The self-attention mechanism amplifies this behavior by weighting syntactic relevance over factual consistency, lacking any explicit grounding in external truth signals or world models. 
+\ \
+Moreover, due to the finite context window and absence of persistent memory, models lose earlier factual constraints as generation proceeds, producing drifted continuations that sound credible but diverge from truth. Contextually, hallucination often emerges from underspecified or open-ended prompts, where the model must extrapolate beyond its training distribution or synthesise unseen entities, as analyzed in @Lajewska2024. 
+\ \
+Compounding this, internal confidence signals are frequently miscalibrated: token probabilities do not reliably reflect truth likelihood, leading models to assert fabricated content with high certainty, a dynamic examined in @Understanding2024. Finally, from an epistemic standpoint, hallucination reflects an absence of grounded self-monitoring, LLMs lack mechanisms to assess whether a generated statement is verifiable or answerable, echoing the broader ethical and cognitive parallels discussed in @Hallucination2025.
+
 
 = xAI Strategies for Addressing Hallucinations
 Recent research has proposed a wide range of detection and mitigation strategies for hallucinations. These strategies range from internal-mechanisms in models to interventions that target the users of LLMs.
@@ -213,8 +221,8 @@ Evaluating trust calibration in human–AI interaction requires a multi-dimensio
 \
 \
 
-Task performance metrics like accuracy, completion rate, and error recovery are analysed in tandem with subjective ratings of confidence and satisfaction @Lai2020, @Sun2023.
-A key methodological development is the use of pre- and post-interaction surveys to gauge both anticipated and experienced trust levels @Wang2023, @Lai2020. @Wang2023 further refine this by integrating real-time monitoring of user reliance, noting moments of overtrust and undertrust during actual task execution @Lai2020. Studies also indicate the value of behavioural analysis, such as tracking whether users seek external verification when confidence scores are low @Wang2023, @Lai2020. 
+Task performance metrics like accuracy, completion rate, and error recovery are analysed in tandem with subjective ratings of confidence and satisfaction @Sun2023.
+A key methodological development is the use of pre- and post-interaction surveys to gauge both anticipated and experienced trust levels @Wang2023, @Lai2020. Wang et al further refine this by integrating real-time monitoring of user reliance, noting moments of overtrust and undertrust during actual task execution @Wang2023. Studies also indicate the value of behavioural analysis, such as tracking whether users seek external verification when confidence scores are low @Lai2020. 
 \
 \
 Comparative frameworks analyse results across groups exposed to varying transparency cues (e.g., confidence indicators, warnings), enabling researchers to isolate the effect of specific design interventions on trust calibration @Sun2023.
@@ -231,23 +239,14 @@ To address these dilemmas, best practices recommend clear documentation, user ed
 = Open Challenges and Research Gaps
 == How to measure the degree of harmfulness of a hallucination
 The complexity of evaluating harm arises from multifaceted criteria that include not only the factual inaccuracy but also the context and severity of outcomes.
+\ \
 Researchers have developed taxonomies of error types specific to AI-generated content and have begun creating coding schemes validated through empirical data such as error reports from users interacting with large language models to better characterise and quantify these harms @Naiseh2021. However these efforts highlight the difficulty of standardising such evaluations as the current taxonomies are often subjective or limited to isolated domains. This puts urgent need for generalised frameworks that can categorise and measure hallucination harm across contexts @Bender2021.
-
-== Hallucination's Technical Cause
-Hallucination in large language models originates from both architectural constraints and contextual limitations inherent to transformer-based generation. Architecturally, LLMs such as GPT variants are trained via next-token prediction using maximum likelihood estimation, which optimizes for local coherence rather than factual grounding. This objective causes models to privilege probabilistic fluency over epistemic accuracy, generating tokens that best fit preceding text even when semantically false. The self-attention mechanism amplifies this behavior by weighting syntactic relevance over factual consistency, lacking any explicit grounding in external truth signals or world models. 
-\ \
-Moreover, due to the finite context window and absence of persistent memory, models lose earlier factual constraints as generation proceeds, producing drifted continuations that sound credible but diverge from truth. Contextually, hallucination often emerges from underspecified or open-ended prompts, where the model must extrapolate beyond its training distribution or synthesise unseen entities, as analyzed in @Lajewska2024. 
-\ \
-Compounding this, internal confidence signals are frequently miscalibrated: token probabilities do not reliably reflect truth likelihood, leading models to assert fabricated content with high certainty, a dynamic examined in @Understanding2024. Finally, from an epistemic standpoint, hallucination reflects an absence of grounded self-monitoring, LLMs lack mechanisms to assess whether a generated statement is verifiable or answerable, echoing the broader ethical and cognitive parallels discussed in @Hallucination2025.
-
 
 == Long-term trust dynamics in everyday use
 Most research in AI trust focuses on short-term interactions in controlled settings, but real world AI use unfolds over weeks, months or years. Repeated experiences of accurate results can lead to a steadily build in confidence however it can only take 1 hallucination to break trust @Bender2021. Emerging concepts like metacognitive sensitivity in which users learn to recognise the limits of AI reliability and adjust their reliance accordingly highlight the need for dynamic trust calibration tools that continuously educate users and adapt to their changing experiences and expectations @Bender2021.
+
 == Standardising evaluation of hallucination impacts
- There is still a research gap when it comes to the standardisation of evaluation metrics for hallucination impacts. Despite the many benchmarks for hallucination detection and assessment, they often differ on fundamental definitions i.e what counts as a hallucination and how do we quantify its severity and damage. THe lack of consistency prevents fair comparisons across models and stops efforts to identify which systems minimise harmful errors.
-
-
-See @Lajewska2024
+ There is still a research gap when it comes to the standardisation of evaluation metrics for hallucination impacts. Despite the many benchmarks for hallucination detection and assessment, they often differ on fundamental definitions i.e what counts as a hallucination and how do we quantify its severity and damage. The lack of consistency prevents fair comparisons across models and stops efforts to identify which systems minimise harmful errors @Lajewska2024.
 
 
 = Conclusion
@@ -263,7 +262,6 @@ Despite progress, significant open challenges remain. The document highlights th
 Ultimately, mitigating the risk of hallucinations and ensuring ethical deployment requires a shared responsibility model @Transparency2024. Developers must implement robust technical safeguards and transparency mechanisms, while users must be educated and empowered to critically assess AI outputs. Future research should prioritise investigating long-term trust dynamics in everyday use and developing standardised, ecologically valid frameworks to measure the true societal impact of LLM hallucinations.
 
 #colbreak()
-#colbreak()
 
 // Display bibliography.
 #bibliography("refs.bib", style:"ieee")
@@ -275,9 +273,9 @@ Parts of this manuscript were spell-checked or assisted by large language models
 == Equal Work
 We are satisfied that all members contributed equally to the creation of the report and that it is our own work.
 \ 
-Signed : Edmund Phelan, 09/10/2025 \
-Signed : Thomas Joyce, 09/10/2025 \
-Signed : Ruairí Glackin, 09/10/2025 \
-Signed : Oisín Frizell, 09/10/2025 \
-Signed : Andrew Jaffray, 09/10/2025 \
+Signed : Edmund Phelan, 19/10/2025 \
+Signed : Thomas Joyce, 19/10/2025 \
+Signed : Ruairí Glackin, 19/10/2025 \
+Signed : Oisín Frizell, 19/10/2025 \
+Signed : Andrew Jaffray, 19/10/2025 \
   
