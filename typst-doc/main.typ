@@ -60,7 +60,7 @@ According to @HoangEtAl, hallucinations in LLMs can be divided into two primary 
 \ 
 (1) Prompting-induced hallucinations, where ill-structured, unspecified, or misleading prompts cause inefficient outputs @Reynolds2021 @Zhou2022 @Wei2022
 \
-(2) Model-internal hallucinations, which caused by the model's architecture, pretraining data distribution, or inference behavior @Bang2023 @Chen2023 @OpenAI2023a.
+(2) Model-internal hallucinations, which caused by the model's architecture, pretraining data distribution, or inference behavior @Bang2023 @OpenAI2023a.
 \ \
 Distinguishing between these two causes is essential for developing effective mitigation strategies.
 \ \
@@ -132,7 +132,7 @@ This excerpt identifies how models fail to parse truth for logical/factual quest
 
 == HaluEval Analysis
 
-Each model was prompted with the instruction and asked to determine whether the provided answer was correct, yielding a binary Yes/No judgment. Model accuracy was then computed as the proportion of judgments aligning with the ground truth, following prior evaluation methodologies @Wu2023 @Vasconcelos2023.
+Each model was prompted with the instruction and asked to determine whether the provided answer was correct, yielding a binary Yes/No judgment. Model accuracy was then computed as the proportion of judgments aligning with the ground truth, following prior evaluation methodologies @Vasconcelos2023.
 
 #tablefig(
   table(
@@ -149,7 +149,7 @@ Each model was prompted with the instruction and asked to determine whether the 
   ),
   caption: [Hallucination detection results across different LLMs using HaluEval (QA subset, 200 samples). Accuracy is the fraction of judgments matching the ground truth.],
 )
-Gemini-3.5 Flash (76%) demonstrated strong factual awareness and reliably acted as a hallucination detection model, making it a suitable baseline for cross-model evaluation @Wu2023 @Understanding2024. Llama-3.1-8B-Instruct (60%) performed moderately, showing inconsistency in binary judgments and suggesting potential benefit from prompt tuning with explicit Yes/No constraints @Lai2020. DeepSeek V3.2 Exp (54%) performed barely above random guessing, indicating weak hallucination detection capabilities and low reliability as a judge model @Wu2023, @FakeIt2025.
+Gemini-3.5 Flash (76%) demonstrated strong factual awareness and reliably acted as a hallucination detection model, making it a suitable baseline for cross-model evaluation @Understanding2024. Llama-3.1-8B-Instruct (60%) performed moderately, showing inconsistency in binary judgments and suggesting potential benefit from prompt tuning with explicit Yes/No constraints @Liao2020. DeepSeek V3.2 Exp (54%) performed barely above random guessing, indicating weak hallucination detection capabilities and low reliability as a judge model @FakeIt2025.
 \ \
 These findings underscore substantial variability in hallucination-detection ability across contemporary LLMs and highlight the need for standardised, reproducible benchmark evaluations. Gemini’s higher performance likely reflects architectural and alignment improvements such as advanced reinforcement learning from human feedback and enhanced factual consistency mechanisms which mitigate hallucination generation and recognition. In contrast, the DeepSeek model, while valuable for transparency and research reproducibility, appears to lack comparable alignment tuning, resulting in higher error rates. This disparity illustrates the evolving trade-off between openness and reliability in the current LLM landscape.
 
@@ -217,16 +217,16 @@ On the other hand, if the system is too relaxed and lacks mitigation, hallucinat
 Calibrated trust refers to the alignment between a user’s confidence in an AI system and the actual reliability or limitations of that system @Lajewska2024. Research shows that overtrust (users relying too heavily on the AI) and undertrust (users disregarding accurate outputs) are common responses to poor calibration, both of which can lead to suboptimal or even harmful outcomes @Lajewska2024. Designing for calibrated trust thus involves not only increasing AI reliability but also implementing transparency tools, such as confidence indicators and explanatory warnings, that help users correctly interpret outputs @Lajewska2024. Studies suggest that adaptive cues such as real-time notifications when users are over- or under-relying on the system can improve trust calibration and task performance @Understanding2024. Ultimately, the goal is to empower users to make informed decisions regarding when to accept, doubt, or verify the information provided by AI systems.
 
 == Evaluation frameworks
-Evaluating trust calibration in human–AI interaction requires a multi-dimensional approach, combining quantitative task metrics with qualitative assessment of user perceptions. Researchers typically employ controlled user studies in which participants interact with AI systems under varying conditions of reliability and transparency. By exposing participants to both accurate outputs and deliberate hallucinations, shifts in user trust can be subsequently validated via survey instruments such as the TrustDiff and System Usability Scale @Wang2023. 
+Evaluating trust calibration in human–AI interaction requires a multi-dimensional approach, combining quantitative task metrics with qualitative assessment of user perceptions. Researchers typically employ controlled user studies in which participants interact with AI systems under varying conditions of reliability and transparency. By exposing participants to both accurate outputs and deliberate hallucinations, shifts in user trust can be subsequently validated via survey instruments such as the TrustDiff and System Usability Scale. 
 \
 \
 
 Task performance metrics like accuracy, completion rate, and error recovery are analysed in tandem with subjective ratings of confidence and satisfaction @Sun2023.
-A key methodological development is the use of pre- and post-interaction surveys to gauge both anticipated and experienced trust levels @Wang2023, @Lai2020. Wang et al further refine this by integrating real-time monitoring of user reliance, noting moments of overtrust and undertrust during actual task execution @Wang2023. Studies also indicate the value of behavioural analysis, such as tracking whether users seek external verification when confidence scores are low @Lai2020. 
+A key methodological development is the use of pre- and post-interaction surveys to gauge both anticipated and experienced trust levels @Liao2020. Wischnewski et al further refine this by exploring the idea of dynamically adjusting transparency and feedback based on observed user behavior (i.e. adaptive calibration) in conceptual survey terms @Wis2023. Studies also indicate the value of behavioural analysis, such as tracking whether users seek external verification when confidence scores are low @Liao2020. 
 \
 \
 Comparative frameworks analyse results across groups exposed to varying transparency cues (e.g., confidence indicators, warnings), enabling researchers to isolate the effect of specific design interventions on trust calibration @Sun2023.
-Ultimately, these evaluation frameworks reveal not only the impact of hallucinations on user trust but also how interface design and feedback mechanisms can mitigate or exacerbate trust erosion @Wang2023, @Sun2023. By triangulating empirical data from task outcomes, surveys, and behavioral traces, researchers gain a robust understanding of how to promote calibrated trust in complex xAI systems @Lai2020, @Sun2023.
+Ultimately, these evaluation frameworks reveal not only the impact of hallucinations on user trust but also how interface design and feedback mechanisms can mitigate or exacerbate trust erosion @Sun2023. By triangulating empirical data from task outcomes, surveys, and behavioral traces, researchers gain a robust understanding of how to promote calibrated trust in complex xAI systems @Sun2023.
 
 == Ethical considerations
 Evaluating the increasing deployment of explainable AI systems raises complex ethical questions regarding responsibility and accountability, particularly when AI-generated hallucinations mislead users @FakeIt2025, @Transparency2024. When an AI system presents inaccurate information, determining responsibility becomes a challenge: should liability rest with the system’s designers, its operators, or the end-users themselves @Legal500_2025, @Massenon2025? Studies highlight that users often place implicit trust in AI output, expecting systems to provide reliable information, as such, misleading hallucinations can result in tangible harm, especially in sensitive domains such as healthcare or finance @FakeIt2025, @Legal500_2025.
@@ -255,7 +255,7 @@ This study confirms that hallucinations remain a critical challenge for Large La
 
 The analysis of user perception reveals that non-experts typically identify hallucinations not through technical means, but heuristically, describing the failure as the AI "lying" or providing "nonsense," which leads to strong negative emotional responses and trust erosion @Massenon2025. This human-centric view is crucial because LLM confidence and fluency often lead to overtrust, where users mistake coherence for correctness.
 
-To counter this, xAI strategies must focus on promoting calibrated trust. Technical interventions, such as answerability detection by @Lajewska2024 and real-time internal state monitoring by @Su2024, are vital for reducing the generation of factually unsupported output. These must be complemented by human-centred design elements, including transparent confidence indicators and contextual warnings, to help users interpret model outputs critically @Lai2020 @Wang2023.
+To counter this, xAI strategies must focus on promoting calibrated trust. Technical interventions, such as answerability detection by @Lajewska2024 and real-time internal state monitoring by @Su2024, are vital for reducing the generation of factually unsupported output. These must be complemented by human-centred design elements, including transparent confidence indicators and contextual warnings, to help users interpret model outputs critically @Liao2020.
 
 Despite progress, significant open challenges remain. The document highlights the difficulty in standardising the measurement of hallucination harmfulness across diverse contexts and the need to investigate cross-cultural differences in trust calibration. Furthermore, current evaluation benchmarks, such as the one used in this study, primarily measure recognition or recall and often fail to simulate open-ended, real-world tasks where hallucinations cause real harm (e.g., legal advice, medical reasoning, research synthesis). Similarly, trivial multiple-choice evaluation tasks may not capture the full impact of hallucinations, which are most misleading and consequential when arising from architectural limitations.
 
@@ -273,7 +273,7 @@ Parts of this manuscript were spell-checked or assisted by large language models
 == Equal Work
 We are satisfied that all members contributed equally to the creation of the report and that it is our own work.
 \ 
-Signed : Edmund Phelan, 19/10/2025 \
+Signed : Edmund Phelan, 19/310/2025 \
 Signed : Thomas Joyce, 19/10/2025 \
 Signed : Ruairí Glackin, 19/10/2025 \
 Signed : Oisín Frizell, 19/10/2025 \
